@@ -135,8 +135,8 @@ function createWholeTable() {
 	}
 	a+="</table>";
 	document.getElementById("forSubmit").innerHTML=`
-	<button onclick="submitSmallTable()">Submit</button>
-	<button onclick="showAnswersSmallTable()">Show answers</button>
+	<button onclick="submitWholeTable()">Submit</button>
+	<button onclick="showAnswers()">Show answers</button>
 	`;
 
 	document.getElementById('forVerbs').innerHTML=a;
@@ -239,6 +239,7 @@ function createMenu(){
 	`
 	document.getElementById('menu').innerHTML=cont;
 	document.getElementById('forVerbs').innerHTML="";
+	document.getElementById('forSubmit').innerHTML="";
 	smallTable=[];
 }
 createMenu();
