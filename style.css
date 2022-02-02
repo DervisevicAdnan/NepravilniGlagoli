@@ -1,0 +1,31 @@
+#menu{
+	width: 100%;
+}
+#menu button{
+	width: 50%;
+	height: 5vw;
+	font-size: 3vw;
+	display: block;
+	margin: 1vw auto;
+	border-radius: 1vw;
+}
+
+#forVerbs table{
+	width: 80%;
+	margin: auto;
+}
+#forVerbs td input{
+	width: 95%;
+	font-size: 2vw;
+}
+
+button{
+	background-color: blue;
+	color: white;
+}
+#forSubmit button{
+	margin: .2vw;
+	font-size: 2vw;
+	border-radius: 1vw;
+	height: 3vw;
+}

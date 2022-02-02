@@ -111,11 +111,13 @@ var irregularVerbs = [
 	["win", "won", "won", "pobijediti"],
 	["write", "wrote", "written", "pisati"],
 ]
-/*let temp=Math.floor(Math.random()*irregularVerbs.length);
-console.log(irregularVerbs[temp][0]+" "+irregularVerbs[temp][1]+" "+irregularVerbs[temp][2]+" "+irregularVerbs[temp][3]);
-*/
+
+var smallTable=[];
 
 function createWholeTable() {
+	document.getElementById("menu").innerHTML=`
+		<button onclick="createMenu()">Menu</button>
+	`
 	var a="<table>";
 	for (let i = 0; i < irregularVerbs.length; i++) {
 		let t=Math.floor(Math.random()*4);
@@ -131,28 +133,112 @@ function createWholeTable() {
 		}
 		a+="</tr>"
 	}
-	a+='</table><button onclick="submit()">Submit</button>';
+	a+="</table>";
+	document.getElementById("forSubmit").innerHTML=`
+	<button onclick="submitSmallTable()">Submit</button>
+	<button onclick="showAnswersSmallTable()">Show answers</button>
+	`;
 
 	document.getElementById('forVerbs').innerHTML=a;
 }
 
-
-function submit() {
+function showAnswers(){
 	for(let i=0;i<irregularVerbs.length;i++){
 		let v=document.getElementsByClassName(""+i);
 		for(let j=0;j<4;j++){
-			if(v[j].value==irregularVerbs[i][j]) v[j].style.borderColor="green";
+			v[j].value=irregularVerbs[i][j];
+			v[j].style.borderColor="black";
+		}
+	}
+}
+
+function submitWholeTable() {
+	for(let i=0;i<irregularVerbs.length;i++){
+		let v=document.getElementsByClassName(""+i);
+		for(let j=0;j<4;j++){
+			if(irregularVerbs[i][j]==v[j].value.toLowerCase()||checkValues(v[j].value,i,j)) v[j].style.borderColor="green";
+			else v[j].style.borderColor="red";
+		}
+	}
+}
+function submitSmallTable() {
+	for(let i=0;i<20;i++){
+		let v=document.getElementsByClassName(""+smallTable[i]);
+
+		for(let j=0;j<4;j++){
+			if(irregularVerbs[smallTable[i]][j]==v[j].value.toLowerCase()||checkValues(v[j].value,smallTable[i],j)) v[j].style.borderColor="green";
 			else v[j].style.borderColor="red";
 		}
 	}
 }
 
+function showAnswersSmallTable() {
+	for(let i=0;i<20;i++){
+		let v=document.getElementsByClassName(""+smallTable[i]);
+
+		for(let j=0;j<4;j++){
+			v[j].value=irregularVerbs[smallTable[i]][j];
+			v[j].style.borderColor="black";
+		}
+	}
+}
+
+function createSmallRandomTable() {
+	document.getElementById("menu").innerHTML=`
+		<button onclick="createMenu()">Menu</button>
+	`
+	var a="<table>";
+	for (let r = 0; r < 20; r++) {
+		let i=Math.floor(Math.random()*110);
+		while(smallTable.includes(i)) i=Math.floor(Math.random()*110);
+		smallTable.push(i);
+		let t=Math.floor(Math.random()*4);
+		a+="<tr>";
+		for(let j=0;j<4;j++){
+			a+="<td>"
+			if(t==j){
+				a+='<input type="text" class="'+i+'" value="' + irregularVerbs[i][j] + '">';
+			}else{
+				a+='<input type="text" class="'+i+'">'
+			}
+			a+="</td>"
+		}
+		a+="</tr>"
+	}
+	a+="</table>";
+	document.getElementById("forSubmit").innerHTML=`
+	<button onclick="submitSmallTable()">Submit</button>
+	<button onclick="showAnswersSmallTable()">Show answers</button>
+	`;
+	document.getElementById('forVerbs').innerHTML=a;
+}
+
+function checkValues(str,indi,indj) {
+	str=str.replace(/č/g,"c");
+	str=str.replace(/ć/g,"c");
+	str=str.replace(/ž/g,"z");
+	str=str.replace(/đ/g,"d");
+	str=str.replace(/š/g,"s");
+	let tmp=irregularVerbs[indi][indj];
+	tmp=tmp.replace(/č/g,"c");
+	tmp=tmp.replace(/ć/g,"c");
+	tmp=tmp.replace(/ž/g,"z");
+	tmp=tmp.replace(/đ/g,"d");
+	tmp=tmp.replace(/š/g,"s");
+	let v=tmp.split("/");
+	for(let i=0;i<v.length;i++){
+		if(v[i]==str) return true;
+	}
+	return false;
+}
 
 function createMenu(){
 	var cont=`
 	<button onclick="createWholeTable()">Čitava tabela</button>
-	<button>bla blaaa</button>
+	<button onclick="createSmallRandomTable()">20 glagola</button>
 	`
 	document.getElementById('menu').innerHTML=cont;
+	document.getElementById('forVerbs').innerHTML="";
+	smallTable=[];
 }
 createMenu();
