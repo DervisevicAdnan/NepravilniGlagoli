@@ -166,7 +166,7 @@ function submitSmallTable() {
 		let v=document.getElementsByClassName(""+smallTable[i]);
 
 		for(let j=0;j<4;j++){
-			if(irregularVerbs[smallTable[i]][j]==v[j].value.toLowerCase()||checkValues(v[j].value,smallTable[i],j)) v[j].style.borderColor="green";
+			if(irregularVerbs[smallTable[i]][j]==v[j].value.toLowerCase()||checkValues(v[j].value.toLowerCase(),smallTable[i],j)) v[j].style.borderColor="green";
 			else v[j].style.borderColor="red";
 		}
 	}
